@@ -2,4 +2,13 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - name: Setup dependency
+    init: git remote set-url origin git@github.com:Akshayg121/Akshayg121-java-prime-number.git
+  - name: husky dependency
+    init: npm install husky --save-dev && npx husky install && npm pkg set scripts.prepare="husky install" && npx husky add .husky/post-commit "git log -1 --shortstat > history_log.txt" && npx husky add .husky/pre-commit "chmod 600 ~/.ssh/id_rsa && chmod 644 ~/.ssh/id_rsa.pub && ssh-keyscan github.com >> ~/.ssh/known_hosts"
+
   - init: mvn install -DskipTests=false
+
+vscode:
+ extensions:
+   - kyntrack.gitpod-plugin
